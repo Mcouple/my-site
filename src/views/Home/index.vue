@@ -1,0 +1,34 @@
+<template>
+<div class="home-container" ref="container">
+    <h1>home</h1>
+  <button @click="handleClick">点击</button>
+</div>
+
+</template>
+
+<script>
+import {showMessage} from "@/utils/index.js";
+export default {
+  methods:{
+    handleClick(){
+      showMessage({
+        content:"评论成功",
+        type:"success",
+        container : this.$refs.container,
+        //回调函数
+        callback:function(){
+          alert('hello world')
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style lang="less" scoped>
+.home-container{
+  width: 600px;
+  height: 800px;
+  border: 2px solid blue;
+}
+</style>
