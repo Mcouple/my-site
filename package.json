@@ -10,10 +10,13 @@
         "test:contact": "vue serve ./src/components/Contact/test.vue",
         "test:menu": "vue serve ./src/components/Menu/test.vue",
         "test:siteAside": "vue serve ./src/components/SiteAside/test.vue",
-        "test:layout": "vue serve ./src/components/Layout/test.vue"
+        "test:layout": "vue serve ./src/components/Layout/test.vue",
+        "test:home": "vue serve ./src/views/Home/test.vue"
     },
     "dependencies": {
+        "axios": "^0.26.0",
         "core-js": "^3.6.5",
+        "mockjs": "^1.1.0",
         "vue": "^2.6.11",
         "vue-router": "^3.4.9"
     },
