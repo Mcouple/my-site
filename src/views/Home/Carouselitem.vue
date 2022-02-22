@@ -1,5 +1,5 @@
 <template>
-<div class="carousel-item-container">
+<div class="carousel-item-container" @mousemove="showMouse" ref="carouselContainer">
     <div class="carousel-img">
         <!-- 图片组件，当图片加载完成才加载文字 -->
         <ImageLoader @load="this.showWords" :src="carousel.bigImg" :placeholder="carousel.midImg"/>
@@ -32,7 +32,7 @@ export default {
     mounted(){
         this.titleWidth = this.$refs.title.clientWidth;
         this.descWidth = this.$refs.desc.clientWidth;
-        this.showWords();
+        this.showMouse();
     },
     methods:{
         //调用该方法显示文字
@@ -51,6 +51,9 @@ export default {
             //描述晚于标题一秒显示
             this.$refs.desc.style.transition = "2s 0.5s"
             this.$refs.desc.style.width = this.descWidth + "px"
+        },
+        showMouse(){
+            console.log(this.$refs.carouselContainer.left)
         }
     }
 }
