@@ -10,8 +10,12 @@ import router from "@/router/index.js"
 
 //向实例注入成员,这样每个vue实例（组件）都可以使用了，不用每个组件都导入一遍了
 import showMessage from "@/utils/index.js";
-
 import "@/api/banner.js"
+
+//注册全局指令
+import vLoading from "@/directives/loading.js";
+Vue.directive("loading", vLoading)
+
 
 
 Vue.prototype.$showMessage = showMessage

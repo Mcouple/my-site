@@ -18,6 +18,7 @@
       active:i===index
     }" v-for="(item,i) in banners" :key="item.id" @click="change(i)"></li>
   </ul>
+  <Loading v-if="isLoading"/>
 </div>
 </template>
 
@@ -25,21 +26,25 @@
 import {getBanners} from "@/api/banner.js";
 import CarouselItem from "@/views/Home/Carouselitem.vue"
 import Carouselitem from './Carouselitem.vue';
-import Icon from "@/components/icon"
+import Icon from "@/components/icon";
+import Loading from "@/components/Loading";
 export default {
   components:{
     CarouselItem,
-    Icon
+    Icon,
+    Loading,
   },
   data(){
     return {
       banners :[],
       index:0, //当前显示的是第几章轮播图
       containerHeight:0,  //整个容器的高度
+      isLoading:true,
     }
   },
   async created(){
     this.banners = await getBanners()
+    this.isLoading = false
   },
   //计算属性
   computed:{
@@ -88,22 +93,11 @@ export default {
 @import  "~@/styles/mixin.less";
 @import "~@/styles/var.less";
 .home-container{
-  background: black;
-  // width: 100%;
-  // height: 100%;
-  //测试使用
-  width: 400px;
-  height: 300px;
-  overflow: auto;
-  border: 2px solid blue;
-  margin: 100px auto;
-  overflow: visible;
-
-
-
-  // margin: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
   position: relative;
-  // overflow: hidden;
+  overflow: hidden;
   .indicator{
     .self-center();
     transform: translateY(-50%);

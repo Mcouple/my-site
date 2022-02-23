@@ -1,6 +1,6 @@
 <template>
-<div class="carousel-item-container" @mousemove="showMouse" ref="carouselContainer">
-    <div class="carousel-img">
+<div class="carousel-item-container" @mousemove="handleMouseMove" ref="containerSize">
+    <div class="carousel-img" :style="imagePosition" ref="innerSize">
         <!-- 图片组件，当图片加载完成才加载文字 -->
         <ImageLoader @load="this.showWords" :src="carousel.bigImg" :placeholder="carousel.midImg"/>
     </div>
@@ -25,14 +25,53 @@ export default {
     data(){
         return{
             titleWidth:0,
-            descWidth:0
+            descWidth:0,
+            containerSize:null, //外部容器的尺寸
+            innerSize:null,      //内层容器的尺寸
+            mouseX:0,           // 鼠标横坐标
+            mouseY:0            // 鼠标纵坐标
+        }
+    },
+    //计算属性
+    computed:{
+        //绑定到元素的style里面去,得到图片坐标
+        imagePosition(){
+            //这里需要设置一个判断，看容器尺寸有没有值
+            if(!this.innerSize || !this.containerSize){
+                return
+            }
+            const extraWidth = this.innerSize.width - this.containerSize.width; //内部图片多出的宽度
+            const extraHeight = this.innerSize.height - this.containerSize.height //内部图片多出的高度
+            const left = -extraWidth / this.containerSize.width * this.mouseX;
+            const top = -extraHeight / this.containerSize.height * this.mouseY
+            return{
+                left:left+"px",
+                top:top+"px",
+            }
+        },
+        //鼠标中心位置
+        center(){
+            return{
+                x : this.containerSize.width / 2,
+                y : this.containerSize.height / 2,
+            }
         }
     },
     //声明周期函数
     mounted(){
         this.titleWidth = this.$refs.title.clientWidth;
         this.descWidth = this.$refs.desc.clientWidth;
-        this.showMouse();
+        this.setSize()
+        this.mouseX = this.center.x;
+        this.mouseY = this.center.y;
+        //注册一个resize事件，当窗口变化重新计算容器尺寸
+        window.addEventListener("resize",this.setSize)
+
+        
+    },
+    //当组件销毁之前，把方法也销毁
+    destroyed(){
+        window.removeEventListener("resize",this.setSize)
     },
     methods:{
         //调用该方法显示文字
@@ -52,8 +91,24 @@ export default {
             this.$refs.desc.style.transition = "2s 0.5s"
             this.$refs.desc.style.width = this.descWidth + "px"
         },
-        showMouse(){
-            console.log(this.$refs.carouselContainer.left)
+        handleMouseMove(e){
+            //拿到元素的位置属性
+            const rect = this.$refs.containerSize.getBoundingClientRect()
+            this.mouseX = e.clientX - rect.left; 
+            this.mouseY = e.clientY - rect.top;
+        },
+        setSize(){
+            //外层容器的宽高
+            this.containerSize = {
+                width:this.$refs.containerSize.clientWidth,
+                height:this.$refs.containerSize.clientHeight
+            }
+            //内层容器的宽高
+            this.innerSize = {
+                width:this.$refs.innerSize.clientWidth,
+                height:this.$refs.innerSize.clientHeight
+            }
+            console.log(this.containerSize,this.innerSize)
         }
     }
 }
@@ -64,11 +119,13 @@ export default {
 .carousel-item-container{
     width: 100%;
     height: 100%;
+    position: relative;
+    overflow: hidden;
     .carousel-img{
         width: 110%;
         height: 110%;
         position: absolute;
-        z-index: -1;
+        // transition: 1s;
     }
     .title,.desc{
         position: absolute;

@@ -11,7 +11,8 @@
         "test:menu": "vue serve ./src/components/Menu/test.vue",
         "test:siteAside": "vue serve ./src/components/SiteAside/test.vue",
         "test:layout": "vue serve ./src/components/Layout/test.vue",
-        "test:home": "vue serve ./src/views/Home/test.vue"
+        "test:home": "vue serve ./src/views/Home/test.vue",
+        "test:Loading": "vue serve ./src/components/Loading/test.vue"
     },
     "dependencies": {
         "axios": "^0.26.0",
