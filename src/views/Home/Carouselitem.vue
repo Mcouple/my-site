@@ -108,7 +108,6 @@ export default {
                 width:this.$refs.innerSize.clientWidth,
                 height:this.$refs.innerSize.clientHeight
             }
-            console.log(this.containerSize,this.innerSize)
         }
     }
 }

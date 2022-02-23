@@ -3,22 +3,22 @@
   <ul class="carousel-contaienr" :style="{
     marginTop,
   }">
-    <li v-for="item in banners" :key="item.id">
+    <li v-for="item in data" :key="item.id">
       <CarouselItem :carousel="item"/>
     </li>
   </ul>
   <div class="icon icon-up" v-show="index>0" @click="change(index-1)">
     <Icon class="Icon" type="arrowUp"/>
   </div>
-  <div class="icon icon-down" v-show="index<banners.length - 1 " @click="change(index+1)">
+  <div class="icon icon-down" v-show="index<data.length - 1 " @click="change(index+1)">
     <Icon class="Icon" type="arrowDown"/>
   </div>
   <ul class="indicator">
     <li :class="{
       active:i===index
-    }" v-for="(item,i) in banners" :key="item.id" @click="change(i)"></li>
+    }" v-for="(item,i) in data" :key="item.id" @click="change(i)"></li>
   </ul>
-  <Loading v-if="isLoading"/>
+  <div v-loading="isLoading"></div>
 </div>
 </template>
 
@@ -27,24 +27,20 @@ import {getBanners} from "@/api/banner.js";
 import CarouselItem from "@/views/Home/Carouselitem.vue"
 import Carouselitem from './Carouselitem.vue';
 import Icon from "@/components/icon";
-import Loading from "@/components/Loading";
+// import Loading from "@/components/Loading";
+import fetchData from "@/mixins/fetchData.js";
 export default {
+  mixins:[fetchData([])],
   components:{
     CarouselItem,
     Icon,
-    Loading,
-  },
+  },  
   data(){
     return {
-      banners :[],
       index:0, //当前显示的是第几章轮播图
       containerHeight:0,  //整个容器的高度
       isLoading:true,
     }
-  },
-  async created(){
-    this.banners = await getBanners()
-    this.isLoading = false
   },
   //计算属性
   computed:{
@@ -70,8 +66,8 @@ export default {
     handleWheel(e){
       if(e.deltaY>=86){
         this.index++;
-        if(this.index>=this.banners.length){
-          this.index = this.banners.length-1
+        if(this.index>=this.data.length){
+          this.index = this.data.length-1
         }
       }
       if(e.deltaY<=-86){
@@ -84,6 +80,10 @@ export default {
     //窗口实时获取函数
     handleResize(){
       this.containerHeight = this.$refs.container.clientHeight;
+    },
+    //导入混入组件，需要加入fetchData方法
+    async fetchData(){
+      return await getBanners()
     }
   }
 }
