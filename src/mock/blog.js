@@ -23,7 +23,7 @@ Mock.mock(/^\/api\/blog(\?.+)?$/, "get", function(options) {
             //属性表达式的语法
             [`rows|${query.limit | 10}`]: [{
                 id: "@guid",
-                title: "@ctitle",
+                title: "@ctitle(10,30)",
                 description: "@cparagraph(1,10)",
                 category: {
                     "id|1-10": 0,
@@ -31,7 +31,10 @@ Mock.mock(/^\/api\/blog(\?.+)?$/, "get", function(options) {
                 },
                 "scanNumber|0-3000": 0,
                 "commentNumber|0-300": 30,
-                thumb: Mock.Random.image("300*250", "#000", "#fff", "Random Image"),
+                // 缩略图
+                "thumb|1": [
+                    Mock.Random.image("300x250", "#000", "#fff", "Random Image"), null
+                ],
                 createDate: `@date("T")`
             }]
         }

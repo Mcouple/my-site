@@ -3,4 +3,7 @@ export { default as getComponentRootDom }
 from "./getComponentRootDom";
 
 export { default as showMessage }
-from "./showMessage"
+from "./showMessage";
+
+export { default as formatDate }
+from "./formatDate"
