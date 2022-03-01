@@ -1,0 +1,56 @@
+<template>
+  <Layout>
+      <div class="main-container" v-loading="isLoading">
+          <BlogDetail :blog="data"  v-if="data"/>
+      </div>
+    <template #right>
+        <div class="right-container" v-loading="isLoading">
+            <BlogToc :toc="data.toc" v-if="data"/>
+            </div>
+    </template>
+  </Layout>
+</template>
+
+<script>
+import fetchData from "@/mixins/fetchData";
+import {getBlog} from "@/api/blog.js";
+import Layout from "@/components/Layout";
+import BlogDetail from "./components/BlogDetail";
+import BlogToc from "./components/BlogTOC";
+export default {
+    components:{
+        Layout,
+        BlogDetail,
+        BlogToc,
+    },
+    mixins:[fetchData(null)],
+    methods:{
+        async fetchData(){
+            return await getBlog(this.$route.params.id)
+        }
+    }
+}
+</script>
+
+<style scoped lang="less">
+.main-container{
+    overflow-y: scroll;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    position: relative;
+    width: 100%;
+    overflow-x:hidden ;
+    li{
+        list-style: square;
+    }
+}
+.right-container{
+    width: 300px;
+    height: 100%;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+    position: relative;
+}
+</style> 

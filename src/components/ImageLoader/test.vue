@@ -17,7 +17,7 @@ export default {
     },
     methods: {
         handleLoaded(){
-            console.log("ImageLoader组件load事件触发，图片加载完成")
+            // console.log("ImageLoader组件load事件触发，图片加载完成")
         }
     },
 }

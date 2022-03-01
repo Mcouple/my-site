@@ -24,7 +24,6 @@ export default {
     list(){
       const totalArticleCount = this.data.reduce((a,b)=> a + b.articleCount,0);
       const result = [{name:"全部",id:-1,articleCount:totalArticleCount},...this.data]
-      console.log(result)
       return result.map(it=>({
         ...it,isSelect:it.id === this.categoryId,
         aside:`${it.articleCount}篇`

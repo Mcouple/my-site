@@ -4,23 +4,36 @@
       <li v-for="item in data.rows" :key="item.id">
         <!-- 显示缩略图的 -->
         <div class="thumb" v-if="item.thumb">
-          <a href="">
+          <RouterLink :to="{
+            name:'BlogDetail',
+            params:{
+              id:item.id
+            }
+          }">
             <img
               :src="item.thumb"
               :alt="item.title"
               :title="item.title"
             />
-          </a>
+          </RouterLink>
         </div>
         <div class="main">
-          <a href="">
+          <RouterLink :to="{
+            name:'BlogDetail',
+            params:{
+              id:item.id
+            }
+          }">
             <h2>{{item.title}}</h2>
-          </a>
+          </RouterLink>
           <div class="aside">
             <span>日期:{{formatDate(item.createDate)}}</span>
             <span>浏览:{{item.scanNumber}}</span>
             <span>评论:{{item.commentNumber}}</span>
-            <a href="/article/cate/8" class="">{{item.category.name}}</a>
+            <RouterLink :to="{name:
+            'CategoryBlog',params:{
+              categoryId:item.category.id
+            }}">{{item.category.name}}</RouterLink>
           </div>
           <div class="desc">
             同空能京南进安西完再支风飞严领光。得生这局月确位军们离存电。热建子光验复更度合确验前切声。
@@ -52,7 +65,7 @@ export default {
         Pager
     },
     created(){
-        console.log(this.routeInfo);
+        // console.log(this.routeInfo);
     },
     computed:{
         //获取路由信息
@@ -87,7 +100,7 @@ export default {
                 query
             })
             }else{
-            //有分类
+            //有分类 
             // /article/cate/${this.routeInfo.cateforyId}?page=${newPage}&limit=${this.routeInfo.limit}
             this.$router.push({
                 name:"CategoryBlog",
