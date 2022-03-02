@@ -4,7 +4,7 @@
     <div class="aside">
         <span>日期:{{formatDate(blog.createDate)}}</span>
         <span>浏览:{{blog.scanNumber}}</span>
-        <span ><a href="#">评论{{blog.commentNumber}}</a> </span>
+        <span ><a href="#data-form-container">评论{{blog.commentNumber}}</a> </span>
         <span ><a href="#">{{blog.category.name}}</a> </span>
     </div>
     <div v-html="blog.htmlContent" class="markdown-body">

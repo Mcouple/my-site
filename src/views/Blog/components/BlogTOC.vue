@@ -17,10 +17,21 @@ export default {
             type:Array,
         }
     },
+    data(){
+        return{
+            acticveAnchor:"article-md-title-1"
+        }
+    },
     methods:{
         //目录点击跳转
         handleSelect(item){
             location.hash = item.anchor
+        }
+    },
+    computed:{
+        //根据toc属性得到带有isSelect数组的toc数组
+        tocWithSelect(){
+
         }
     }
 }

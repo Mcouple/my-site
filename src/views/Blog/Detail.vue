@@ -2,6 +2,7 @@
   <Layout>
       <div class="main-container" v-loading="isLoading">
           <BlogDetail :blog="data"  v-if="data"/>
+          <BlogComment v-if="!isLoading"/>
       </div>
     <template #right>
         <div class="right-container" v-loading="isLoading">
@@ -17,11 +18,13 @@ import {getBlog} from "@/api/blog.js";
 import Layout from "@/components/Layout";
 import BlogDetail from "./components/BlogDetail";
 import BlogToc from "./components/BlogTOC";
+import BlogComment from "./components/BlogComment.vue";
 export default {
     components:{
         Layout,
         BlogDetail,
         BlogToc,
+        BlogComment,
     },
     mixins:[fetchData(null)],
     methods:{
