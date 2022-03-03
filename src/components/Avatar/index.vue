@@ -12,7 +12,7 @@ export default {
         url:{
             type:String, //url属性必须是一个字符串
             // required:true//属性必须传
-            default:"https://tse1-mm.cn.bing.net/th/id/R-C.fe5120d6ef6f7e57acedb1435d7cb00e?rik=sHtKftTxaF0lkQ&riu=http%3a%2f%2fimg.ewebweb.com%2fuploads%2f20191231%2f11%2f1577761365-bpjNduFZKa.jpg&ehk=AMhr89KDcHw1AcCfyF1hVGGhmiwPzLP%2fEMzMpKJwlUM%3d&risl=&pid=ImgRaw&r=0"
+            default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPhPD1DVvthdZWJ7SI5kpuedJS4TmAF3IC2A&usqp=CAU"
         },
         size:{
             type:Number,
