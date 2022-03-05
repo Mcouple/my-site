@@ -7,7 +7,8 @@
 </template>
 
 <script>
-import RightList from "./RightList.vue"
+import RightList from "./RightList.vue";
+import {debounce}from "@/utils/index.js"
 export default {    
     components:{
         RightList,
@@ -19,7 +20,7 @@ export default {
     },
     data(){
         return{
-            activeAnchor:"article-md-title-1",
+            activeAnchor:"",
         }
     },
 
@@ -31,7 +32,7 @@ export default {
                     ...t,
                     isSelect:t.anchor === this.activeAnchor,
                     children:getTOC(t.children),
-                }))
+                })) 
             };
             return getTOC(this.toc)
         },
@@ -51,7 +52,12 @@ export default {
         },
     },
     created(){
-       window.setSelect =  this.setSelect;
+        this.setSelectDebounce = debounce(this.setSelect,20)
+       this.$bus.$on("mainScroll",this.setSelectDebounce)
+    },
+    destroyed(){
+        //销毁dom元素之后，销毁事件总线
+        this.$bus.$off("mainScroll",this.setSelectDebounce)
     },
     methods:{
     //目录点击跳转
@@ -59,7 +65,10 @@ export default {
             location.hash = item.anchor
         },
         //设置activeAnchor为正确的值
-        setSelect(){
+        setSelect(scrollDom){
+            if(!scrollDom){
+                return
+            }
             //由于后续要重新设置，先清空之前的状态
             this.activeAnchor = "";
             const range = 200;

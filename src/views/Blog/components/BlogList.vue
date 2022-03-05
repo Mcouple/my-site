@@ -1,5 +1,5 @@
 <template>
-  <div class="blog-list-container" ref="container" v-loading="isLoading">
+  <div class="blog-list-container" ref="mainContainer" v-loading="isLoading">
     <ul>
       <li v-for="item in data.rows" :key="item.id">
         <!-- 显示缩略图的 -->
@@ -59,8 +59,9 @@ import Pager from "@/components/Pager/";
 import fetchData from "@/mixins/fetchData.js";
 import {getBlogs} from "@/api/blog.js";
 import {formatDate} from "@/utils";
+import mainScroll from "@/mixins/mainScroll.js";
 export default {
-    mixins:[fetchData({})],
+    mixins:[fetchData({}),mainScroll("mainContainer")],
     components:{
         Pager
     },

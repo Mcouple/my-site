@@ -1,6 +1,6 @@
 <template>
   <div class="blog-comment-container">
-      <MessageArea title="评论列表" :subTitle="`(${data.total})`"
+      <MessageArea title="评论列表"  :subTitle="`(${data.total})`"
       :list="data.rows" 
       :isListLoading="isLoading"
       @submit="handleSubmit"
@@ -23,9 +23,45 @@ export default {
             limit:10,
         }
     },
+    created(){
+        this.$bus.$on("mainScroll",this.handleScroll)
+    },
+    destroyed(){
+        this.$bus.$off("mainScroll",this.handleScroll)
+    },
+    computed:{
+        //判断有没有更多的评论
+        hasMore(){
+            return this.data.rows.length < this.data.total
+        },
+    },
     methods:{
+        async handleScroll(dom){
+            if(this.isLoading || !dom){
+                //目前正在加载更多
+                return
+            };
+            const range = 50;
+            const dec = Math.abs((dom.scrollTop+dom.clientHeight)-dom.scrollHeight);
+            if(dec<=range){
+                this.fetchMore()
+            }
+        },
         async fetchData(){
             return getComments(this.$route.params.id,this.page,this.limit)
+        },
+        //加载下一页评论
+        async fetchMore(){
+            if(!this.hasMore){
+                //没有更多数据了
+                return
+            };
+            this.isLoading = true;
+            this.page++;
+            const resp = await this.fetchData();
+            this.data.total = resp.total;
+            this.data.rows = this.data.rows.concat(resp.rows);
+            this.isLoading = false;
         },
         async handleSubmit(formData,callback){
             const resp = await postComment({

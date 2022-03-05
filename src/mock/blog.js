@@ -33,7 +33,9 @@ Mock.mock(/^\/api\/blog(\?.+)?$/, "get", function(options) {
                 "commentNumber|0-300": 30,
                 // 缩略图
                 "thumb|1": [
-                    Mock.Random.image("300x250", "#000", "#fff", "Random Image"), null
+                    //这里因为浏览器有缓存，所以每个文章模拟的图片都是一样的
+                    // Mock.Random.image("300x250", "#000", "#fff", "Random Image"), null
+                    "@image(300x250,@color,#fff,@title Image)"
                 ],
                 createDate: `@date("T")`
             }]
@@ -306,7 +308,8 @@ Mock.mock(/^\/api\/comment\/?(\?.+)?$/, "get", function(options) {
         code: 0,
         msg: "",
         data: {
-            "total|50-200": 0,
+            // "total|50-200": 0,
+            total: 50,
             //属性表达式的语法
             [`rows|${query.limit | 10}`]: [{
                 id: "@guid",
