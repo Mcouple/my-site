@@ -11,7 +11,7 @@
             }
           }">
             <img
-              :src="item.thumb"
+              v-lazy="item.thumb"
               :alt="item.title"
               :title="item.title"
             />
@@ -118,7 +118,7 @@ export default {
         async $route(){
             this.isLoading = true;
             // loading效果会跑上去，所以每次加载页面，让滚动条滚上去
-            this.$refs.container.scrollTop=0;
+            this.$refs.mainContainer.scrollTop=0;
             this.data = await this.fetchData();
             this.isLoading = false;
         }
