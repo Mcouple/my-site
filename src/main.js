@@ -19,6 +19,7 @@ import vLazy from "@/directives/lazy.js";
 Vue.directive("loading", vLoading)
 Vue.directive("lazy", vLazy)
 
+
 new Vue({
     router,
     render: h => h(App),

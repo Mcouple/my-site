@@ -17,11 +17,13 @@
 import SiteAside from "@/components/SiteAside";
 import Layout from "@/components/Layout";
 import ToTop from "./components/ToTop";
+import App from "@/tests/index.vue"
 export default {
   components:{
     SiteAside,
     Layout,
     ToTop,
+    App,
   }
 }
 </script>
