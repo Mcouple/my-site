@@ -1,5 +1,6 @@
 <template>
 <div class="home-container" ref="container" @wheel="handleWheel">
+
   <ul class="carousel-contaienr" :style="{
     marginTop,
   }">
@@ -18,19 +19,16 @@
       active:i===index
     }" v-for="(item,i) in data" :key="item.id" @click="change(i)"></li>
   </ul>
-  <div v-loading="isLoading"></div>
+  <div v-loading="loading"></div>
 </div>
 </template>
 
 <script>
-import {getBanners} from "@/api/banner.js";
-import CarouselItem from "@/views/Home/Carouselitem.vue"
+import {mapState} from "vuex";
+import CarouselItem from "@/views/Home/Carouselitem.vue";
 import Carouselitem from './Carouselitem.vue';
 import Icon from "@/components/icon";
-// import Loading from "@/components/Loading";
-import fetchData from "@/mixins/fetchData.js";
 export default {
-  mixins:[fetchData([])],
   components:{
     CarouselItem,
     Icon,
@@ -42,11 +40,15 @@ export default {
       isLoading:true,
     }
   },
+  created(){
+    this.$store.dispatch("banner/fetchBanner")
+  },
   //计算属性
   computed:{
     marginTop(){
-      return  -this.index * this.containerHeight + "px"
-    }
+      return  -this.index * this.containerHeight + "px";
+    },
+    ...mapState("banner",["loading","data"])
   },
   mounted(){
     //当dom元素挂载之后，得到容器的高度
@@ -81,10 +83,6 @@ export default {
     handleResize(){
       this.containerHeight = this.$refs.container.clientHeight;
     },
-    //导入混入组件，需要加入fetchData方法
-    async fetchData(){
-      return await getBanners()
-    }
   }
 }
 </script>

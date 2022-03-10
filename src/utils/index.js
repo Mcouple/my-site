@@ -6,7 +6,9 @@ export { default as showMessage }
 from "./showMessage";
 
 export { default as formatDate }
-from "./formatDate"
+from "./formatDate";
 
 export { default as debounce }
-from "./debounce.js"
+from "./debounce.js";
+export { default as titleController }
+from "./titleController.js";

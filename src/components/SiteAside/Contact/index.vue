@@ -1,24 +1,26 @@
 <template>
     <ul class="contact-container">
         <li>
-            <a href="tencent://message/?Menu=yes&uin=1031725971&Service=300&sigT=45a1e5847943b64c6ff3990f8a9e644d2b31356cb0b4ac6b24663a3c8dd0f8aa12a595b1714f9d45">
-                <div class="icon"><Icon type="qq"/></div>
-                <span>1031725971</span>
+            <a v-if="data" :href="`tencent://message/?Menu=yes&uin=${data.qq}&Service=300&sigT=45a1e5847943b64c6ff3990f8a9e644d2b31356cb0b4ac6b24663a3c8dd0f8aa12a595b1714f9d45`">
+                <div class="icon"><Icon type='qq'/></div>
+                <span>{{data.qq}}</span>
             </a>
             <div class="pop">
                 <img src="@/assets/wechat.jpg" alt="">
             </div>
         </li>
         <li>
-            <a href="mailto:suplzy0409@gmail.com" >
-                <div class="icon"><Icon type="mail"/></div>
-                <span>suplzy0409@gmail.com</span>
+            <a v-if="data" :href="`mailto:${data.mail}`" >
+                <div class="icon">
+                    <Icon type="mail"/>
+                </div>
+                <span>{{ data.mail }}</span>
             </a>
         </li>
         <li>
-            <a href="">
+            <a v-if="data" target="_blank" :href="data.github">
                 <div class="icon"><Icon type="github"/></div>
-                <span>Mcouple</span>
+                <span>{{data.githubName}}</span>
             </a>
             <div class="pop">
                 <img src="@/assets/wechat.jpg" alt="">
@@ -27,7 +29,7 @@
         <li>
             <a href="">
                 <div class="icon"><Icon type="weixin"/></div>
-                <span>18625636523</span>
+                <span v-if="data">{{data.weixin}}</span>
             </a>
             <div class="pop">
                 <img src="@/assets/wechat.jpg" alt="">
@@ -38,10 +40,13 @@
 
 <script>
 import Icon from "@/components/icon";
+//导入数据仓库
+import {mapState} from "vuex";
 export default {
     components:{
         Icon
     },
+    computed:mapState("setting",["data"])
 }
 </script>
 

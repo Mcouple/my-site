@@ -20,6 +20,7 @@ import BlogDetail from "./components/BlogDetail";
 import BlogToc from "./components/BlogTOC";
 import BlogComment from "./components/BlogComment.vue";
 import mainScroll from "@/mixins/mainScroll.js";
+import {titleController} from "@/utils"
 export default {
     components:{
         Layout,
@@ -30,7 +31,9 @@ export default {
     mixins:[fetchData(null),mainScroll("mainContainer")],
     methods:{
         async fetchData(){
-            return await getBlog(this.$route.params.id)
+           const resp =  await getBlog(this.$route.params.id)
+            titleController.setRouteTitle(resp.title)
+           return resp
         },
     },
     //当界面更新之后,仍然跳转到之前的目录激活位置
