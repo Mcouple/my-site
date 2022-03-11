@@ -84,7 +84,7 @@ export default {
   position: relative;
 }
 .tip {
-  position: absolute;
+  // position: absolute;
   right: 0px;
   color: #b4b8bc;
   font-size: 12px;

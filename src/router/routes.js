@@ -3,7 +3,8 @@ import About from "@/views/About";
 import Blog from "@/views/Blog";
 import Message from "@/views/Message";
 import Project from "@/views/Project";
-import BlogDetail from "@/views/Blog/Detail"
+import BlogDetail from "@/views/Blog/Detail";
+import NotFound from "@/views/NotFound.vue"
 
 export default [{
         name: "Home",
@@ -60,5 +61,10 @@ export default [{
         meta: {
             title: "项目和效果"
         }
+    },
+    {
+        name: "NotFount",
+        path: "*",
+        component: NotFound
     }
 ]
