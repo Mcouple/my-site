@@ -4,7 +4,7 @@ module.exports = {
     devServer: {
         proxy: {
             "/api": {
-                target: "https://test.my-site.com",
+                target: "https://mcouple.github.io/Mcouple-website/",
             }
         }
     }

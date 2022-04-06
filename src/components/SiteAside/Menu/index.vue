@@ -1,7 +1,7 @@
 <template>
     <nav class="menu-container">
         <router-link :exact="item.exact"  v-for="item in items" :key="item.link" :to="{name:item.name}" 
-         active-class="selected" exact-active-class=""  
+         active-class="selected"  exact-active-class=""  
         >
             <!-- :class="{selected:isSelected(item)}" -->
             <icon :type="item.icon"/>
@@ -23,7 +23,7 @@ export default {
                     name:"Home",
                     title:"首页",
                     icon:"home",
-                    exact:true    //首页要精确匹配
+                    exact:true,
                 },{
                     name:"Blog",
                     title:"文章",
@@ -49,6 +49,7 @@ export default {
             ]
         }
     },
+
     // methods:{
     //     isSelected(item){
     //         //菜单的链接地址

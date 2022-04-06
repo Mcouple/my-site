@@ -7,8 +7,12 @@ import BlogDetail from "@/views/Blog/Detail";
 import NotFound from "@/views/NotFound.vue"
 
 export default [{
+        //首次打开页面直接默认跳转路由
+        path: '*',
+        redirect: '/home'
+    }, {
         name: "Home",
-        path: "/",
+        path: "/home",
         component: Home,
         meta: {
             title: "首页"

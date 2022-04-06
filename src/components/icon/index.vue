@@ -41,5 +41,5 @@ export default {
 </script>
 
 <style scoped>
-@import"//at.alicdn.com/t/font_2164449_nalfgtq7il.css"
+@import"//at.alicdn.com/t/font_2164449_nalfgtq7il.css";
 </style>
